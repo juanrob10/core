@@ -2,10 +2,21 @@
 
 {% block content %}
 
-<ul>
-    {% for user in users %}
-        <li><a href="#">{{ user.username }}</a></li>
-    {% endfor %}
-</ul>
+
+   
+  </ul>
+
+    <ul>
+    
+
+        <ul class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active">
+                Cras justo odio
+              </a>
+              {% for user in users %}
+                    <li class="list-group-item ">username: {{ user.username }} 
+                        email: {{user.email          }}</li>
+                {% endfor %}
+    </ul>
 
 {% endblock%}

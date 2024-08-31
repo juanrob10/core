@@ -20,18 +20,23 @@ admin.site.unregister(Group)
 
 
 class UserAdmin(BaseUserAdmin, ModelAdmin):
-	form = UserChangeForm
-	add_form = UserCreationForm
-	change_password_form = AdminPasswordChangeForm
-	
-	readonly_fields = ['date_joined','last_login']
+  
+    form = UserChangeForm
+    add_form = UserCreationForm
+    change_password_form = AdminPasswordChangeForm
+    readonly_fields = ['date_joined','last_login']
 
-
-	add_fieldsets = (
+    fieldsets = (
+        (None, {"fields": ("image","username","first_name",'last_name',"email","password",)}),
+        ("Fechas importantes",{"fields": ("last_login","date_joined")}),
+        ("Permisos", {"fields": ("is_staff","is_superuser", "is_active", "groups", "user_permissions")}),
+    )
+  
+    add_fieldsets = (
         (None, {
             "classes": ("wide",),
             "fields": (
-                "username","email","first_name","last_name","password1", "password2", 
+                "username","email","first_name","image","last_name","password1", "password2", 
             )}
         ),
     )

@@ -8,19 +8,33 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-
-
     <style>
-      footer {
-        position: fixed;
-        height: 100px;
-        bottom: 0;
-        width: 100%;
+      /* Agregar padding a los elementos de la navbar */
+      .navbar-nav .nav-link {
+          padding: 8px 15px; /* Más padding alrededor de los elementos del navbar */
+          font-size: 0.9rem; /* Reducir tamaño de fuente */
       }
-    </style>
+
+      /* Ajustar la altura de la navbar y espaciar los elementos */
+      .navbar {
+          padding: 0.5rem 1rem; /* Ajustar padding de la navbar */
+      }
+
+      /* Ajustes al contenido de la página */
+      .container {
+          padding-top: 20px; /* Más espacio en la parte superior */
+          padding-bottom: 20px; /* Más espacio en la parte inferior */
+      }
+
+      /* Aumentar el espacio entre elementos de footer */
+      footer {
+          padding: 20px 0;
+      }
+  </style>  
+
 </head>
 <body>   
- 
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,10 +48,7 @@
     
             {% if user.is_authenticated %}
           
-            <li class="nav-item">
-                
-                <a class="nav-link link-light" href="{%  url 'accounts:logout' %}">SALIR</a>
-              </li>
+       
               
               {% if request.resolver_match.url_name == 'profile'%}
                 <li class="nav-item">
@@ -98,10 +109,17 @@
          
          
           </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+
+          <ul class="navbar-nav  justify-content-end">
+
+            {% if   user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link link-light" href="{%  url 'accounts:logout' %}">SALIR</a>
+                </li>
+            {% endif %}
+           
+          </ul>
+            
         </div>
       </div>
     </nav>
@@ -115,8 +133,7 @@
   {% endif %}
    
 <div class="container  mt-4" style="min-height:50vh">
-  {% block content %}
- 
+  {% block content %} 
     {% endblock %}  
 </div>
 
@@ -130,6 +147,6 @@
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
-  
+
 </body>
 </html>
