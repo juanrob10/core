@@ -6,7 +6,23 @@
 
 {% block content %}
 
-    <h1>Bienvenido!</h1>
-    <h1>  Username: {{user.username }} : Email: {{user.email}}</h1>
+
+<div class="card">
+ 
+    <div class="card-header">
+      Featured
+    </div>
+    <div class="card-body">
+
+      <h5 class="card-title">Username: {{user.username }} </h5>
+      <img src="{{ user.image.url }}" alt="Profile Picture" style="max-width: 200px; border-radius: 50%;">
+      
+       <p class="card-text">Nombre: {{user.first_name}} {{ user.last_name}}</p>
+
+       <p class="card-text">Email: {{user.email}}</p>
+      <a href="{% url 'accounts:profile'%}" class="btn btn-primary">Editar</a>
+    </div>
+  </div>
+
 
 {% endblock %}
