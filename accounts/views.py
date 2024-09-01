@@ -10,6 +10,10 @@ from .models import CustomUser as User
 from .forms import  CustomUserUpdateForm
 
 
+def home_view(request):
+    return render(request,'accounts/home.html')
+
+
 @login_required(login_url='/accounts/login/')
 def logout_view(request):
     logout(request)
