@@ -8,6 +8,25 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     <style>
+
+    .alert-container {
+      position: fixed; /* Fija el contenedor en la pantalla */
+      top: 55px; /* Distancia desde la parte superior */
+      right: 20px; /* Distancia desde la parte derecha */
+      z-index: 1050; /* Asegura que esté por encima de otros elementos */
+      width: 300px; /* Ancho máximo del contenedor de alertas */
+      pointer-events: none; /* Permite hacer clic a través del contenedor */
+    }
+
+    .alert {
+      position: relative; /* Posiciona las alertas de forma relativa dentro del contenedor fijo */
+      margin: 0; /* Elimina cualquier margen que pueda afectar el flujo de la página */
+      margin-bottom: 10px; /* Añade espacio solo entre alertas */
+      opacity: 0.9; /* Transparencia leve para diferenciarlo del contenido */
+      transition: opacity 0.5s ease-out; /* Transición suave al desvanecer */
+      pointer-events: auto; /* Habilita los clics dentro de los elementos de alerta */
+    }
+
       .dropdown-menu {
          min-width: 6.4rem  ;
       }
@@ -34,6 +53,8 @@
       }
   </style>  
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>   
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,7 +62,11 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="{%  url 'accounts:home' %}">Navbar</a>
+        <a class="navbar-brand" href="{%  url 'accounts:home' %}">
+
+          <img src="{% static 'logo.png'%}" alt="logo" srcset="" width="35" height="35"
+          style="border-radius: 50%;">
+        </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
          
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -116,7 +141,13 @@
               </button>
         
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item " href="{%  url 'accounts:logout' %}">SALIR</a> 
+                <a class="dropdown-item " href="{%  url 'accounts:logout' %}">
+                  <span style="padding-right: 5px;">
+                    SALIR
+                  </span>
+                
+                  <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a> 
               </div>
               {%  else %}
               <li class="nav-item">
@@ -141,14 +172,15 @@
         </div>
       </div>
     </nav>
-  
-  {% if messages %}
-      {% for message in messages %}
-              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                  {{message}}
-              </div>
-      {% endfor %}
-  {% endif %}
+    <div class="alert-container">
+    {% if messages %}
+        {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{message}}
+                </div>
+        {% endfor %}
+    {% endif %}
+  </div>
    
 <div class="container  mt-4" style="min-height:50vh">
   {% block content %} 
@@ -168,6 +200,19 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% bootstrap_javascript %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(function () {
+      var alertElements = document.querySelectorAll('.alert');
+      alertElements.forEach(function (element) {
+        element.style.opacity = '0'; // Cambia la opacidad para el desvanecimiento
+        setTimeout(function () {
+          element.remove(); // Elimina el elemento después de que se desvanezca
+        }, 500); // Espera que termine la transición antes de eliminar
+      });
+    }, 3000); // Espera 3 segundos antes de iniciar el desvanecimiento
+  });
+</script>
 
 </body>
 </html>

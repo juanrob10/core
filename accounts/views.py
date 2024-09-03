@@ -13,11 +13,10 @@ from .forms import  CustomUserUpdateForm
 def home_view(request):
     return render(request,'accounts/home.html')
 
-
 @login_required(login_url='/accounts/login/')
 def logout_view(request):
     logout(request)
-    messages.add_message(request, messages.INFO, "logout successful!")
+    messages.info(request,"salida exitosa!")
     return render(request, 'accounts/logout.html')
 
 
